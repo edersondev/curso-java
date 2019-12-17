@@ -1,5 +1,6 @@
 package entity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,9 @@ import java.util.List;
 import enums.OrderStatus;
 
 public class Order {
+	
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	
 	private Date moment;
 	private OrderStatus status;
 	
@@ -51,4 +55,29 @@ public class Order {
 		}
 		return sum;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Data do pedido: ");
+		sb.append(sdf.format(this.moment) + "\n");
+		
+		sb.append("Status do pedido: ");
+		sb.append(status + "\n");
+		
+		sb.append("Cliente: ");
+		sb.append(client + "\n");
+		
+		sb.append("Itens do pedido:\n");
+		for(OrderItem item : items) {
+			sb.append(item + "\n");
+		}
+		
+		sb.append("Total pedido: $");
+		sb.append(String.format("%.2f", this.total()));
+		
+		return sb.toString();
+	}
+	
 }
